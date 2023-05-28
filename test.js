@@ -6,21 +6,21 @@ import ReactPaginate from 'react-paginate';
 import styled from 'styled-components';
 export default function AdminHome({ userData }) {
   const [data, setData] = useState([]);
-  const [pageCount,setPageCount]=useState(5);
-  const[limit=5,setLimit]=useState();
-  const[currentPage=1,setCurrentPage]=useState();
+  const [pageCount, setPageCount] = useState(5);
+  const [limit = 5, setLimit] = useState();
+  const [currentPage = 1, setCurrentPage] = useState();
   const movies = React.useRef(null);
 
   useEffect(() => {
-    movies.current=1;
+    movies.current = 1;
     // getAllUser();
-  //  handlePageClick();
-  getPaginatedData();
- 
+    //  handlePageClick();
+    getPaginatedData();
+
   });
 
-  const getPaginatedData=()=>{
-    fetch("http://localhost:5000/users?page=1&limit=5", {
+  const getPaginatedData = () => {
+    fetch("https://page-login-kohl.vercel.app/users?page=1&limit=5", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -32,7 +32,7 @@ export default function AdminHome({ userData }) {
   }
 
   const getAllUser = () => {
-    fetch("http://localhost:5000/getAllUser", {
+    fetch("https://page-login-kohl.vercel.app/getAllUser", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -48,7 +48,7 @@ export default function AdminHome({ userData }) {
   };
   const deleteUser = (id, name) => {
     if (window.confirm(`Are you sure you want to delete ${name}`)) {
-      fetch("http://localhost:5000/deleteUser", {
+      fetch("https://page-login-kohl.vercel.app/deleteUser", {
         method: "POST",
         crossDomain: true,
         headers: {
@@ -68,19 +68,19 @@ export default function AdminHome({ userData }) {
     } else {
     }
   };
-//   function base64(e) {
-//     var reader = new FileReader();
-//     reader.readAsDataURL(e.target.files[0]);
+  //   function base64(e) {
+  //     var reader = new FileReader();
+  //     reader.readAsDataURL(e.target.files[0]);
 
-//     reader.onload = () => {
-//         console.log(reader.result); //base64encoded string
-//         setImage(reader.result);
-//     };
-//     reader.onerror = error => {
-//         console.log("Error: ", error);
-//     };
-// }
-{/* <input
+  //     reader.onload = () => {
+  //         console.log(reader.result); //base64encoded string
+  //         setImage(reader.result);
+  //     };
+  //     reader.onerror = error => {
+  //         console.log("Error: ", error);
+  //     };
+  // }
+  {/* <input
 accept="image/*"
 
 id="button-file"
@@ -88,39 +88,39 @@ type="file"
 onChange={base64}
 /> */}
 
-function handlePageClick(e){
-  console.log(e);
-  setCurrentPage(e.selected+1);
-  movies.current=e.selected+1
-  console.log(movies.current);
-  fetch(`http://localhost:5000/users?page=${movies.current}&limit=${limit}`, {
-    method: "GET",
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data, "userData");
-      setData(data.data);
-    });
-}
+  function handlePageClick(e) {
+    console.log(e);
+    setCurrentPage(e.selected + 1);
+    movies.current = e.selected + 1
+    console.log(movies.current);
+    fetch(`https://page-login-kohl.vercel.app/users?page=${movies.current}&limit=${limit}`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "userData");
+        setData(data.data);
+      });
+  }
 
-function limitChanged(e){
+  function limitChanged(e) {
 
 
-fetch(`http://localhost:5000/users?page=${movies.current}&limit=${limit}`, {
-  method: "GET",
-})
-  .then((res) => res.json())
-  .then((data) => {
-    console.log(data, "userData");
-    setData(data.data);
-    setPageCount(data.pageCount)
-   movies.current=1
-  });
-}
+    fetch(`https://page-login-kohl.vercel.app/users?page=${movies.current}&limit=${limit}`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "userData");
+        setData(data.data);
+        setPageCount(data.pageCount)
+        movies.current = 1
+      });
+  }
 
 
   return (
-    <div className="auth-wrapper" style={{height:"auto"}}>
+    <div className="auth-wrapper" style={{ height: "auto" }}>
       <div className="auth-inner" style={{ width: "auto" }}>
         <h3>Welcom Admin</h3>
         <table style={{ width: 500 }}>
@@ -148,30 +148,30 @@ fetch(`http://localhost:5000/users?page=${movies.current}&limit=${limit}`, {
         </table>
 
         <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="< previous"
-        renderOnZeroPageCount={handlePageClick}
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="< previous"
+          renderOnZeroPageCount={handlePageClick}
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
 
-     
-        marginPagesDisplayed={2}
-      
-        containerClassName="pagination justify-content-center"
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        activeClassName="active"
-      />
-      <input placeholder="limit" onChange={e=>setLimit(e.target.value)}/>
-      <button onClick={limitChanged}>Set limit</button>
+
+          marginPagesDisplayed={2}
+
+          containerClassName="pagination justify-content-center"
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          activeClassName="active"
+        />
+        <input placeholder="limit" onChange={e => setLimit(e.target.value)} />
+        <button onClick={limitChanged}>Set limit</button>
         <button onClick={logOut} className="btn btn-primary">
           Log Out
         </button>

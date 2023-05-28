@@ -17,12 +17,12 @@ function ImageUpload() {
             console.log("Error: ", error);
         };
     }
-    useEffect(()=>{
+    useEffect(() => {
         getImage()
-    },[])
+    }, [])
 
     function uploadImage() {
-        fetch("http://localhost:5000/upload-image", {
+        fetch("https://page-login-kohl.vercel.app/upload-image", {
             method: "POST",
             crossDomain: true,
             headers: {
@@ -36,7 +36,7 @@ function ImageUpload() {
         }).then((res) => res.json()).then((data) => console.log(data))
     }
     function getImage() {
-        fetch("http://localhost:5000/get-image", {
+        fetch("https://page-login-kohl.vercel.app/get-image", {
             method: "GET",
         }).then((res) => res.json()).then((data) => {
             console.log(data)
@@ -54,11 +54,11 @@ function ImageUpload() {
                 />
                 {image == "" || image == null ? "" : <img width={100} height={100} src={image} />}
                 <button onClick={uploadImage}>Upload</button>
-<br/>
-                {allImage.map(data=>{
-                    return(
+                <br />
+                {allImage.map(data => {
+                    return (
                         <img width={100} height={100} src={data.image} />
-                        
+
                     )
                 })}
 

@@ -21,7 +21,7 @@ export default class Reset extends Component {
 
         console.log(email);
 
-        fetch("http://localhost:5000/forgot-password", {
+        fetch("https://page-login-kohl.vercel.app/forgot-password", {
 
             method: "POST",
 
